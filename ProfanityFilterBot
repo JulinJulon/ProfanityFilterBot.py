@@ -1,0 +1,72 @@
+from better_profanity import profanity
+
+
+pf = profanity
+censored_text = pf.censor("Fuck you shitter")
+print(censored_text)
+
+
+#Read in a file, censor all profanity words inside of it
+with open("ProfanityFilterTextFile.txt") as file:
+    lines = file.readlines()
+
+
+for line in lines:
+    censored_line = pf.censor(line)
+    print(censored_line)
+
+
+#Customizable Color, turn the user inputted color into whatever color you want
+def custom_colored_censor(text, color_code="\033[1;32m"):
+    word = color_code
+    color_code()
+
+
+#Chatlog session, where the user can also interact in the chatbox, 
+def chat_session():
+    current_rating = 100
+
+    #profanity.load_censor_words()
+
+    print("First, let's add a username into the chat:")
+    print("Type exit to end the chat session..\n")
+    username = input("Welcome to the profanity filter test! Here, we will do anything to censor bad words, Type anything in the chat and test it out:")
+
+    while True:
+        message = input(f"{username}:")
+        if message.lower() == "exit":
+            print("Ending chat session...")
+            break
+
+        words = message.split() #Split the message into a list of worsd
+        censored_message = [] #Part of the censored messages
+
+        for word in words: 
+            if profanity.contains_profanity(word):
+              print("Please watch your language! We are trying to make this family friendly!")
+              censored_message.append(profanity.censor(word))
+            else:
+                censored_message.append(word)
+
+        filtered_message = censored_message        
+        print(f"Censored Message: {filtered_message}\n")
+
+def Assistance_message(message):
+        if "help" or "Help" or "HELP" in message:
+            print("How may I assist you?")
+        
+        if "What is this chat about?" in message:
+            print("This is a profanity chat bot, as it will detect any swear words and censor them, feel free to try it out!")
+
+        else:
+            print("Please enter a valid response. ")
+
+
+    #This section will also use a translator, and censor the bad words (Spanish)
+
+if __name__ == "__main__":
+    chat_session()
+    custom_colored_censor()
+    Assistance_message()
+
+
